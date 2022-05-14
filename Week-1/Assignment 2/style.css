@@ -1,0 +1,101 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+body {
+  margin: 0;
+  padding: 0;
+  font-family: "Lato", sans-serif;
+}
+.main-wrapper {
+  width: 100%;
+  display: flex;
+}
+.left-section {
+  width: 2%;
+  padding: 0.5%;
+  height: 100vh;
+  background: #edeaea;
+}
+.left-section ul {
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  flex-direction: column;
+}
+.left-section li {
+  display: block;
+  cursor: pointer;
+}
+.right-section {
+  width: 97%;
+}
+.right-section .header {
+  display: flex;
+  height: 200px;
+  padding: 20px;
+  background-color: #3f3f3f;
+  display: flex;
+}
+
+.right-section .header .header-image {
+  color: #fff;
+  width: 150px;
+  height: 180px;
+  background-color: white;
+}
+.right-section .header .header-description {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding-left: 20px;
+  color: white;
+}
+.right-section .header .header-controllers {
+  display: flex;
+  justify-content: space-between;
+  padding-bottom: 20px;
+}
+.right-section table {
+  width: 100%;
+}
+.right-section table {
+  width: 100%;
+}
+.right-section table td {
+  padding: 10px;
+}
+.right-section table tr:nth-child(even) {
+  background: #edeaea;
+}
+.right-section .button {
+  width: 150px;
+  border: blue 1.5px solid;
+  text-align: center;
+  color: blue;
+  padding: 2px;
+}
+footer {
+  padding: 20px;
+  background-color: #43689b;
+  display: flex;
+  justify-content: space-between;
+}
+footer .footer-image {
+  color: #fff;
+  width: 80px;
+  height: 100px;
+  background-color: white;
+  align-self: flex-end;
+}
+footer .footer-icons {
+  padding: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+footer .footer-icons i {
+  color: white;
+  padding: 0 50px;
+}
