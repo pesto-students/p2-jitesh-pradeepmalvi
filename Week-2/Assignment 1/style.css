@@ -31,8 +31,6 @@ article .left-article {
 article .left-article img {
   width: 80%;
   padding-top: 50px;
-
-  object-fit: contain;
 }
 article .right-article {
   display: flex;
@@ -58,11 +56,13 @@ article p {
   margin-bottom: 80px;
   background-color: #c2c2c2;
   padding: 50px;
+  border-radius: 2px;
 }
 .form-wrapper .input-group {
   padding: 5px 0;
   display: flex;
   justify-content: space-between;
+  align-items: center;
 }
 
 .form-wrapper .input-group input,

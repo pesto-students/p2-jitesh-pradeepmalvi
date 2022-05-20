@@ -74,27 +74,27 @@
       <form action="">
         <div class="input-group">
           <label for="firstName">First Name</label>
-          <input type="text" name="firstName" type="text" />
+          <input type="text" name="firstName" type="text" required />
         </div>
         <div class="input-group">
           <label for="lastName">Last Name</label>
-          <input type="text" name="lastName" type="text" />
+          <input type="text" name="lastName" type="text" required />
         </div>
         <div class="input-group">
           <label for="email">Email</label>
-          <input type="email" name="email" type="text" />
+          <input type="email" name="email" type="text" required />
         </div>
         <div class="input-group">
           <label for="phone">Phone Number</label>
-          <input type="tel" name="phone" type="text" />
+          <input type="tel" name="phone" type="text" required />
         </div>
         <div class="input-group">
           <label for="password">Password</label>
-          <input type="password" name="password" type="text" />
+          <input type="password" name="password" type="text" required />
         </div>
         <div class="input-group">
           <label for="confirmPassword"> Confirm Password </label>
-          <input type="password" name="confirmPassword" type="text" />
+          <input type="password" name="confirmPassword" type="text" required />
         </div>
         <div class="input-group">
           <label for="country"> Country </label>
@@ -105,14 +105,14 @@
           </select>
         </div>
         <div class="terms">
-          <input name="term" type="checkbox" />
-          <label for="term">
+          <label for="terms">
+            <input id="terms" name="terms" type="checkbox" required />
             I agree to the <a href="">terms and condition</a>
           </label>
         </div>
         <button type="submit">Submit</button>
       </form>
     </div>
-    <footer><p>@copyright 2022</p></footer>
+    <footer><p>Blog @ copyright 2022</p></footer>
   </body>
 </html>
