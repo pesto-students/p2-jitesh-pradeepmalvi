@@ -1,0 +1,157 @@
+body {
+  margin: 0;
+  padding: 0;
+}
+.main-wrapper {
+  width: 100%;
+  height: auto;
+  display: flex;
+  height: auto;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+.main-wrapper h1 {
+  position: absolute;
+  top: 150px;
+}
+.box-wrapper {
+  position: absolute;
+  top: 0;
+  width: 25%;
+  padding: 50px;
+  margin: 0 auto;
+  display: flex;
+  flex-wrap: wrap;
+}
+.box-wrapper .box {
+  position: relative;
+  width: 150px;
+  height: 150px;
+  left: 0;
+  right: 0;
+}
+.red {
+  background: red;
+  animation: redBoxOut 1s forwards;
+}
+
+.green {
+  background: green;
+  animation: greenBoxOut 1s forwards;
+}
+
+.yellow {
+  background: yellow;
+  animation: yellowBoxOut 1s forwards;
+}
+
+.blue {
+  background: blue;
+  animation: blueBoxOut 1s forwards;
+}
+
+.box-wrapper:hover .red {
+  animation: redBoxIn 1s forwards;
+}
+@keyframes redBoxIn {
+  from {
+    top: 0;
+    left: 0px;
+    transform: rotate(0deg);
+  }
+  to {
+    top: 0;
+    left: -150px;
+    transform: rotate(90deg);
+  }
+}
+
+@keyframes redBoxOut {
+  to {
+    top: 0;
+    left: 0px;
+    transform: rotate(0deg);
+  }
+  from {
+    top: 0;
+    left: -150px;
+    transform: rotate(90deg);
+  }
+}
+
+.box-wrapper:hover .yellow {
+  animation: yellowBoxIn 1s forwards;
+}
+@keyframes yellowBoxIn {
+  from {
+    left: 0px;
+    transform: rotate(0deg);
+  }
+  to {
+    left: 150px;
+    transform: rotate(-90deg);
+  }
+}
+@keyframes yellowBoxOut {
+  to {
+    left: 0px;
+    transform: rotate(0deg);
+  }
+  from {
+    left: 150px;
+    transform: rotate(-90deg);
+  }
+}
+
+.box-wrapper:hover .blue {
+  animation: blueBoxIn 1s forwards;
+}
+@keyframes blueBoxIn {
+  from {
+    top: 0;
+    left: 0px;
+    transform: rotate(0deg);
+  }
+  to {
+    top: 0;
+    left: -150px;
+    transform: rotate(-90deg);
+  }
+}
+
+@keyframes blueBoxOut {
+  to {
+    top: 0;
+    left: 0px;
+    transform: rotate(0deg);
+  }
+  from {
+    top: 0;
+    left: -150px;
+    transform: rotate(-90deg);
+  }
+}
+.box-wrapper:hover .green {
+  animation: greenBoxIn 1s forwards;
+}
+@keyframes greenBoxIn {
+  from {
+    left: 0px;
+    transform: rotate(0deg);
+  }
+  to {
+    left: 150px;
+    transform: rotate(90deg);
+  }
+}
+@keyframes greenBoxOut {
+  in {
+    left: 0px;
+    transform: rotate(0deg);
+  }
+  from {
+    left: 150px;
+    transform: rotate(90deg);
+  }
+}
