@@ -1,6 +1,6 @@
 ## Answer
 
-I got the result "Count is 0"
+The result is "Count is 0"
 
 When we are calling createIncrement() function that time its calling both functions inside it step by step. so that time it stored the value of message in a variable
 
