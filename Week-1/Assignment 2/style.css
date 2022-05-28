@@ -12,7 +12,7 @@ body {
   display: flex;
 }
 .left-section {
-  width: 2%;
+  width: 3%;
   padding: 0.5%;
   height: 100vh;
   background: #edeaea;
@@ -33,29 +33,28 @@ body {
 }
 .right-section .header {
   display: flex;
-  height: 200px;
-  padding: 20px;
+  height: auto;
+  padding: 40px;
   background-color: #3f3f3f;
   display: flex;
 }
-
 .right-section .header .header-image {
-  color: #fff;
-  width: 150px;
-  height: 180px;
+}
+.right-section .header .header-image img {
+  width: 100%;
+  height: auto;
   background-color: white;
 }
 .right-section .header .header-description {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  padding-left: 20px;
+  padding-left: 40px;
   color: white;
 }
 .right-section .header .header-controllers {
   display: flex;
   justify-content: space-between;
-  padding-bottom: 20px;
 }
 .right-section table {
   width: 100%;
@@ -82,12 +81,17 @@ footer {
   display: flex;
   justify-content: space-between;
 }
-footer .footer-image {
-  color: #fff;
-  width: 80px;
-  height: 100px;
-  background-color: white;
-  align-self: flex-end;
+.footer-image {
+  display: flex;
+  align-items: center;
+  color: white;
+}
+.footer-image p {
+  line-height: 30px;
+}
+.footer-image img {
+  width: 100px;
+  margin-right: 20px;
 }
 footer .footer-icons {
   padding: 10px;
@@ -98,4 +102,5 @@ footer .footer-icons {
 footer .footer-icons i {
   color: white;
   padding: 0 50px;
+  font-weight: bold;
 }
