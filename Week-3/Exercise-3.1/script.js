@@ -1,20 +1,23 @@
 //Given reducer method:
-function add(a, b) {
-  return a + b;
-}
-let cache = new Map();
+const add = (...args) => {
+  const numbers = [...args];
+  return numbers.reduce((sum, num) => (sum = sum + num));
+};
 
-function memoize(...arg) {
-  if (cache.has(arg.toString())) {
-    return cache.get(arg.toString());
+const memoize = (...arg) => {
+  const cache = new Map();
+  const argString = arg.toString();
+
+  if (cache.has(argString)) {
+    return cache.get(argString);
   }
   let value = add(...arg);
 
-  cache.set(arg.toString(), value);
+  cache.set(argString, value);
 
   console.log(cache);
   return value;
-}
+};
 
 console.log(memoize(100, 100)); //returns 200
 console.log(memoize(100)); //returns 100
