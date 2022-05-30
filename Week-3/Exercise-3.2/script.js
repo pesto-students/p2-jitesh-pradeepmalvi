@@ -16,7 +16,7 @@ const car = {
 // BIND
 const car2 = { brand: "Toyota", model: "Glanza", year: "2022" };
 const getCar2 = car.getCar.bind(car2);
-getCar2();
+getCar2({ ownerType: "third Owner" });
 
 // CALL
 car.getCar.call(
