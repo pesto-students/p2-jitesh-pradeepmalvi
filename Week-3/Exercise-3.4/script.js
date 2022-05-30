@@ -19,23 +19,27 @@
 
 console.log("--------------------");
 
-function createStack() {
+const createStack = () => {
   // Write your code here...
-  const obj = {
-    items: [],
+  let items = [];
+
+  return {
     push(item) {
-      this.items.push(item);
+      items.push(item);
     },
     pop() {
-      this.items.pop();
+      items.pop();
+    },
+    getItems() {
+      console.log(items.length);
     },
   };
-
-  return obj;
-}
+};
 const stack = createStack();
 stack.push(10);
 stack.push(5);
-console.log(stack);
-console.log(stack.pop()); // => 5
+stack.getItems();
+// console.log(stack);
+stack.pop(); // => 5
+stack.getItems();
 console.log(stack.items); // => undefined
