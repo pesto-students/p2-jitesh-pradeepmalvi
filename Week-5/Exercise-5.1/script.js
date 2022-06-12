@@ -2,26 +2,25 @@ const doTheTask = (taskNumber) => {
   return `Task ${taskNumber} completed`;
 };
 
-// Async and await function
-const doTask1 = async (fn) => {
-  try {
-    const response = await fn("one");
-    console.log(response);
-  } catch (error) {
-    console.log(error);
-  }
-};
-
-// Generator function
-function* doTask2(fn) {
-  const response = fn("two");
-  yield console.log(response);
+async function* fetchUsers(fn, taskNumber) {
+  const response = await fn(taskNumber);
+  yield response;
 }
 
-// Async and await
-doTask1(doTheTask);
+fetchUsers(doTheTask, "one")
+  .next()
+  .then(({ value, done }) => {
+    console.log(value);
+  });
 
-// Generator
-doTask2(doTheTask).next();
+fetchUsers(doTheTask, "two")
+  .next()
+  .then(({ value, done }) => {
+    console.log(value);
+  });
 
-// doTask3();
+fetchUsers(doTheTask, "three")
+  .next()
+  .then(({ value, done }) => {
+    console.log(value);
+  });
