@@ -2,24 +2,24 @@ const doTheTask = (taskNumber) => {
   return `Task ${taskNumber} completed`;
 };
 
-async function* fetchUsers(fn, taskNumber) {
+async function* completeTheTask(fn, taskNumber) {
   const response = await fn(taskNumber);
   yield response;
 }
 
-fetchUsers(doTheTask, "one")
+completeTheTask(doTheTask, "one")
   .next()
   .then(({ value, done }) => {
     console.log(value);
   });
 
-fetchUsers(doTheTask, "two")
+completeTheTask(doTheTask, "two")
   .next()
   .then(({ value, done }) => {
     console.log(value);
   });
 
-fetchUsers(doTheTask, "three")
+completeTheTask(doTheTask, "three")
   .next()
   .then(({ value, done }) => {
     console.log(value);
