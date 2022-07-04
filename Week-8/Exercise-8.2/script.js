@@ -8,7 +8,7 @@ class TreeNode {
 
 let root = null;
 
-function createBSTRecur(root, key) {
+const createBSTRecur = (root, key) => {
   if (root === null) {
     root = new TreeNode(key);
     return root;
@@ -21,15 +21,15 @@ function createBSTRecur(root, key) {
   }
 
   return root;
-}
+};
 
-function createBST(arr) {
+const createBST = arr => {
   for (let a of arr) {
     root = createBSTRecur(root, a);
   }
-}
+};
 
-var isValidBST = function (root) {
+const isValidBST = root => {
   if (root == null) return true;
   let check = (node, l = -Infinity, r = Infinity) => {
     if (node == null) return true;
