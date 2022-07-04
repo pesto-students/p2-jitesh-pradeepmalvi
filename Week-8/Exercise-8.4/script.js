@@ -1,4 +1,4 @@
-var validPath = function (n, edges, start, end) {
+const validPath = (n, edges, start, end) => {
   const map = new Map();
   let found = false;
   for (let i = 0; i < n; i++) {
@@ -9,7 +9,7 @@ var validPath = function (n, edges, start, end) {
     map.get(u).add(v);
   }
   const visited = new Set();
-  function dfs(at) {
+  const dfs = at => {
     if (visited.has(at)) return;
     visited.add(at);
     if (at === end) {
@@ -21,7 +21,7 @@ var validPath = function (n, edges, start, end) {
       visited.add(v);
     }
     visited.delete(at);
-  }
+  };
   dfs(start);
   return found;
 };

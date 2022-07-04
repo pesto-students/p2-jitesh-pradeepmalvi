@@ -1,23 +1,43 @@
-const nextGraterElement = (arr, n) => {
-  const finalArr = [];
-  for (let i = 0; i < arr.length; i++) {
-    let nextElement = arr[i + 1];
+const findJudge = (N, trust) => {
+  const notTrust = new Set();
+  for (let i = 1; i <= N; i++) notTrust.add(i);
 
-    if (!nextElement) {
-      finalArr.push(-1);
-    } else if (arr[i] < nextElement) {
-      finalArr.push(nextElement);
-    } else {
-      for (let j = i; j < arr.length; j++) {
-        if (arr[i] < arr[j]) {
-          finalArr.push(arr[j]);
-          break;
-        }
-      }
+  const indegree = new Map();
+  let maxIndegree = 0,
+    judgeCandidate = 1;
+
+  trust.forEach(edge => {
+    const [source, destination] = edge;
+
+    notTrust.delete(source);
+
+    if (!indegree.has(destination)) indegree.set(destination, 0);
+    let destCount = indegree.get(destination);
+    destCount += 1;
+    indegree.set(destination, destCount);
+
+    if (destCount > maxIndegree) {
+      maxIndegree = destCount;
+      judgeCandidate = destination;
     }
-  }
-  return finalArr;
+  });
+
+  if (maxIndegree === N - 1 && notTrust.has(judgeCandidate))
+    return judgeCandidate;
+  return -1;
 };
 
-console.log(nextGraterElement([1, 3, 2, 4], 4));
-console.log(nextGraterElement([6, 8, 0, 1, 3], 5));
+console.log(findJudge(2, [[1, 2]]));
+console.log(
+  findJudge(3, [
+    [1, 3],
+    [2, 3]
+  ])
+);
+console.log(
+  findJudge(3, [
+    [1, 3],
+    [2, 3],
+    [3, 1]
+  ])
+);
