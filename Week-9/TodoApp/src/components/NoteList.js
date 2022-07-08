@@ -1,20 +1,71 @@
 import React from "react";
 import Note from "./Note";
+import NoteInputForm from "./NoteInputForm";
 
-export default function NoteList() {
+export default function NoteList({ noteList, onSetNoteList }) {
+  const onEdit = id => {
+    onSetNoteList(
+      noteList.map(n =>
+        n.id === id
+          ? {
+              ...n,
+              isOnEditState: !n.isOnEditState
+            }
+          : {
+              ...n,
+              isOnEditState: n.isOnEditState
+            }
+      )
+    );
+  };
+  const onDelete = id => {
+    onSetNoteList(noteList.filter(n => n.id !== id));
+  };
+  const onApprove = id => {
+    onSetNoteList(
+      noteList.map(n =>
+        n.id === id
+          ? {
+              ...n,
+              isApproved: !n.isApproved
+            }
+          : n
+      )
+    );
+  };
+  const onNoteUpdate = (id, values) => {
+    onSetNoteList(
+      noteList.map(n =>
+        n.id === id
+          ? {
+              ...values,
+              isOnEditState: false
+            }
+          : n
+      )
+    );
+  };
   return (
-    <div className="flex flex-wrap">
-      <Note
-        title="Lorem ipsum dolor sit amet consectetur adipisicing elit. Fuga veniam, autem sapiente laborum"
-        description="Lorem ipsum dolor sit amet consectetur adipisicing elit. Fuga veniam, autem sapiente laborum repellat minus officiis repellendus accusamus labore illum officia mollitia? Tempora explicabo harum cupiditate consequatur libero sint, sequi voluptates aspernatur? Reiciendis, adipisci vel, eius corporis nobis temporibus qui dolorem nulla ipsa cupiditate fugiat possimus velit minima, quam perspiciatis!"
-      />
-      <Note title="hello" description="" />
-      <Note title="hello" description="world" />
-      <Note title="hello" description="world" />
-      <Note title="hello" description="world" />
-      <Note title="hello" description="world" />
-      <Note title="hello" description="world" />{" "}
-      <Note title="hello" description="world" />
+    <div className="flex flex-wrap w-full">
+      {noteList.map(note =>
+        note.isOnEditState ? (
+          <NoteInputForm
+            onNoteUpdate={onNoteUpdate}
+            isOnEditState
+            note={note}
+          />
+        ) : (
+          <Note
+            id={note.id}
+            title={note.title}
+            description={note.description}
+            approved={note.isApproved}
+            onEdit={onEdit}
+            onDelete={onDelete}
+            onApprove={onApprove}
+          />
+        )
+      )}
     </div>
   );
 }
