@@ -22,7 +22,7 @@ export default function HomePage() {
   return (
     <>
       <Navbar />
-      <div className="pt-10 mx-5 flex">
+      <div className="pt-10 mx-5 flex flex-col lg:flex-row">
         <div className="mx-5 my-10 min-w-[30%]">
           <NoteInputForm onNoteAdd={onNoteAdd} />
         </div>
