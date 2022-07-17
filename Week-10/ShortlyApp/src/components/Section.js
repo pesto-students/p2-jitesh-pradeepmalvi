@@ -5,8 +5,7 @@ import LinkView from "./LinkView";
 export default function Section() {
   const [data, setData] = useState([]);
   const onShortenLink = obj => {
-    setData([...data, obj]);
-    console.log(data);
+    setData([obj, ...data]);
   };
   return (
     <div className="bg-gray-200 lg:p-5 text-center flex items-center min-h-[80vh]">
@@ -14,7 +13,7 @@ export default function Section() {
         <h1 className="text-5xl mb-5">More than just shorter links</h1>
         <p className="text-xl">
           Build your brand's recognition and get detailed insights on how your
-          links are performing
+          links are performing.
         </p>
         <div className="flex flex-col items-center justify-items-center mt-2">
           <div className="lg:w-4/6 sm:w-full">
