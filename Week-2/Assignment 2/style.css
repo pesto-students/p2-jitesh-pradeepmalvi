@@ -1,0 +1,71 @@
+body {
+  margin: 0;
+  padding: 0;
+}
+.main-wrapper {
+  width: 100%;
+  height: auto;
+  display: flex;
+  height: auto;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+.main-wrapper h1 {
+  position: absolute;
+  top: 150px;
+}
+.box-wrapper {
+  position: absolute;
+  top: 0;
+  width: 25%;
+  padding: 50px;
+  margin: 0 auto;
+  display: flex;
+  flex-wrap: wrap;
+}
+.box-wrapper .box {
+  position: relative;
+  width: 150px;
+  height: 150px;
+  left: 0;
+  right: 0;
+}
+.red {
+  background: red;
+  transition: 1s;
+  transform-origin: left top;
+}
+
+.yellow {
+  background: yellow;
+  transition: 1s;
+  transform-origin: top right;
+}
+
+.blue {
+  background: blue;
+  transition: 1s;
+  transform-origin: left bottom;
+}
+.green {
+  background: green;
+  transition: 1s;
+  transform-origin: right bottom;
+}
+
+.box-wrapper:hover .red {
+  transform: rotate(90deg);
+}
+
+.box-wrapper:hover .yellow {
+  transform: rotate(-90deg);
+}
+
+.box-wrapper:hover .blue {
+  transform: rotate(-90deg);
+}
+
+.box-wrapper:hover .green {
+  transform: rotate(90deg);
+}
