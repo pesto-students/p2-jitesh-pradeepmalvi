@@ -1,8 +1,16 @@
 const axios = require("axios");
+const { getAllUrls } = require("../utils");
 
 const getWeatherByCities = async (req, res) => {
   try {
     const { cities } = req.body;
+
+    if (!cities) {
+      res.send({ status: false, message: "invalid city" });
+    }
+    if (cities.length === 0) {
+      res.send({ status: false, message: "city required" });
+    }
 
     Promise.all(getAllUrls(cities, res))
       .then(function (values) {
@@ -26,7 +34,7 @@ const getWeatherByCity = async (req, res) => {
     const { city } = req.body;
 
     const response = await axios.get(
-      `https://api.weatherapi.com/v1/current.json?key=${process.env.API_KEY}&q=${city}`
+      `https://api.weatherapi.com/v1/current.json?key=${process.env.API_KEY}&q=${city}&days=5`
     );
 
     res.send({
@@ -39,23 +47,53 @@ const getWeatherByCity = async (req, res) => {
   }
 };
 
-const getAllUrls = (cities, res) => {
-  if (!cities) {
-    res.send({ status: false, message: "invalid city" });
+const getForcastByDays = async (req, res) => {
+  try {
+    const { city, days } = req.body;
+
+    const response = await axios.get(
+      `https://api.weatherapi.com/v1/forecast.json?key=${process.env.API_KEY}&q=${city}&days=${days}&aqi=no&alerts=no`
+    );
+
+    res.send({
+      status: true,
+      data: {
+        ...response.data.location,
+        ...response.data.current,
+        ...response.data.forecast
+      }
+    });
+  } catch (error) {
+    const { message } = error;
+    res.send({ message });
   }
-  if (cities.length === 0) {
-    res.send({ status: false, message: "city required" });
-  }
-  let requests = [];
-  cities.forEach(city => {
-    if (!city) {
-      res.send({ status: false, message: "invalid city" });
-    }
-    let URL = `https://api.weatherapi.com/v1/current.json?key=${process.env.API_KEY}&q=${city}`;
-    let request = axios.get(URL);
-    requests.push(request);
-  });
-  return requests;
 };
 
-module.exports = { getWeatherByCities, getWeatherByCity };
+const getForcastByDate = async (req, res) => {
+  try {
+    const { city, date } = req.body;
+
+    const response = await axios.get(
+      `https://api.weatherapi.com/v1/future.json?key=${process.env.API_KEY}&q=${city}&dt=${date}`
+    );
+
+    res.send({
+      status: true,
+      data: {
+        ...response.data.location,
+        ...response.data.current,
+        ...response.data.forecast
+      }
+    });
+  } catch (error) {
+    const { message } = error;
+    res.send({ message });
+  }
+};
+
+module.exports = {
+  getWeatherByCities,
+  getWeatherByCity,
+  getForcastByDays,
+  getForcastByDate
+};

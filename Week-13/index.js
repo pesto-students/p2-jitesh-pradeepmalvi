@@ -15,7 +15,7 @@ app.get("/", (req, res) => {
   });
 });
 
-app.use("/api/weather", route);
+app.use("/api", route);
 
 const PORT = process.env.PORT || 5000;
 
