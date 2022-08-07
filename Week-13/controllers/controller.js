@@ -32,9 +32,12 @@ const getWeatherByCities = async (req, res) => {
 const getWeatherByCity = async (req, res) => {
   try {
     const { city } = req.body;
+    if (!city) {
+      res.send({ status: false, message: "invalid city" });
+    }
 
     const response = await axios.get(
-      `https://api.weatherapi.com/v1/current.json?key=${process.env.API_KEY}&q=${city}&days=5`
+      `https://api.weatherapi.com/v1/current.json?key=${process.env.API_KEY}&q=${city}`
     );
 
     res.send({
@@ -50,6 +53,14 @@ const getWeatherByCity = async (req, res) => {
 const getForcastByDays = async (req, res) => {
   try {
     const { city, days } = req.body;
+
+    if (!city) {
+      res.send({ status: false, message: "city required" });
+    }
+
+    if (!days) {
+      res.send({ status: false, message: "days required" });
+    }
 
     const response = await axios.get(
       `https://api.weatherapi.com/v1/forecast.json?key=${process.env.API_KEY}&q=${city}&days=${days}&aqi=no&alerts=no`
@@ -72,6 +83,14 @@ const getForcastByDays = async (req, res) => {
 const getForcastByDate = async (req, res) => {
   try {
     const { city, date } = req.body;
+
+    if (!city) {
+      res.send({ status: false, message: "city required" });
+    }
+
+    if (!date) {
+      res.send({ status: false, message: "date required" });
+    }
 
     const response = await axios.get(
       `https://api.weatherapi.com/v1/future.json?key=${process.env.API_KEY}&q=${city}&dt=${date}`
