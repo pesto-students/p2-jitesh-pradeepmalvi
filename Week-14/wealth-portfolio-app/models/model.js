@@ -15,9 +15,7 @@ const IncomeSchema = new mongoose.Schema(
     },
     name: { type: String, required: true },
     amount: { type: Number, required: true },
-    createdAt: {
-      type: Date
-    }
+    date: { type: String, required: true }
   },
   { timestamps: true }
 );
@@ -31,9 +29,7 @@ const ExpenseSchema = new mongoose.Schema(
     },
     name: { type: String, required: true },
     amount: { type: Number, required: true },
-    createdAt: {
-      type: Date
-    }
+    date: { type: String, required: true }
   },
   { timestamps: true }
 );

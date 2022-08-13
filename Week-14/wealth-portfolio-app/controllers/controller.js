@@ -9,8 +9,12 @@ const userRegister = async (req, res) => {
     });
     res.json({
       status: true,
-      message: "User register successfully!",
-      data: user
+      message: "User registered successfully!",
+      data: {
+        id: user._id,
+        email: user.email,
+        name: user.name
+      }
     });
   } catch (error) {
     res.json({ status: false, error: "User already exist!" });
@@ -21,11 +25,11 @@ const userLogin = async (req, res) => {
   const { email, password } = req.body;
   const user = await User.findOne({ email });
 
-  if (user.password !== password) {
-    res.json({ status: false, message: "Invalid password!" });
-  }
-
   if (user) {
+    if (user.password !== password) {
+      res.json({ status: false, message: "Invalid password!" });
+    }
+
     res.json({
       status: true,
       message: "User found successfully!",
@@ -55,13 +59,13 @@ const getIncomeByUser = async (req, res) => {
 };
 
 const incomeAdd = async (req, res) => {
-  const { user, type, name, amount } = req.body;
+  const { user, date, name, amount } = req.body;
   try {
     const income = await Income.create({
       user,
-      type,
       name,
-      amount
+      amount,
+      date
     });
     res.json({ status: true, data: income });
   } catch (error) {
@@ -101,13 +105,13 @@ const getExpenseByUser = async (req, res) => {
 };
 
 const expenseAdd = async (req, res) => {
-  const { user, type, name, amount } = req.body;
+  const { user, name, amount, date } = req.body;
   try {
     const expense = await Expense.create({
       user,
-      type,
       name,
-      amount
+      amount,
+      date
     });
     res.json({ status: true, data: expense });
   } catch (error) {
@@ -137,12 +141,14 @@ const getSummaryReport = async (req, res) => {
   const expense = await Expense.find({ user });
   const income = await Income.find({ user });
 
-  const incomeTotal = income
-    .map(i => i.amount)
-    .reduce((sum, amount) => (sum = sum + amount));
-  const expenseTotal = expense
-    .map(i => i.amount)
-    .reduce((sum, amount) => (sum = sum + amount));
+  const incomeTotal =
+    income.length > 0
+      ? income.map(i => i.amount).reduce((sum, amount) => (sum = sum + amount))
+      : 0;
+  const expenseTotal =
+    expense.length > 0
+      ? expense.map(i => i.amount).reduce((sum, amount) => (sum = sum + amount))
+      : 0;
   const balance = incomeTotal - expenseTotal;
 
   if (expense) {
