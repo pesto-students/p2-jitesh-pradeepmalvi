@@ -105,7 +105,7 @@ export default function Section() {
                           {moment(income.date).format("DD MMM YYYY")}
                         </div>
                         |
-                        <span className="uppercase font-bold ml-5">
+                        <span className="uppercase font-bold ml-10">
                           {income.name}
                         </span>
                       </div>
@@ -150,7 +150,7 @@ export default function Section() {
                           {moment(expense.date).format("DD MMM YYYY")}
                         </div>
                         |
-                        <span className="uppercase font-bold ml-5">
+                        <span className="uppercase font-bold ml-10">
                           {expense.name}
                         </span>
                       </div>

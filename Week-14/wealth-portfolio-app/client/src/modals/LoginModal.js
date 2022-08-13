@@ -54,6 +54,7 @@ export default function RegisterModal({ modalIsOpen, onClose }) {
   };
 
   function closeModal() {
+    setValues({});
     onClose();
   }
 

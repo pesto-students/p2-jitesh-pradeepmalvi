@@ -54,6 +54,7 @@ export default function RegisterModal({ modalIsOpen, onClose }) {
     try {
       axios.post(`http://localhost:5000/api/users/register`, data).then(res => {
         setLoading(false);
+        console.log("data", res.data);
         if (res.data.status) {
           onClose();
           localStorage.setItem("wealth_user", JSON.stringify(res.data.data));
@@ -63,11 +64,13 @@ export default function RegisterModal({ modalIsOpen, onClose }) {
         }
       });
     } catch (error) {
+      // console.log("data", error.response);
       setLoading(false);
     }
   };
 
   function closeModal() {
+    setValues({});
     onClose();
   }
 

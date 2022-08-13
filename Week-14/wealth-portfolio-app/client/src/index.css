@@ -20,4 +20,11 @@ body {
     scrollbar-width: none;
     /* Firefox */
   }
+  .main-page-bg {
+    width: 100%;
+    background-image: url(https://images.pexels.com/photos/7054399/pexels-photo-7054399.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2);
+    background-position: center center;
+    background-size: cover;
+    background-repeat: no-repeat;
+  }
 }

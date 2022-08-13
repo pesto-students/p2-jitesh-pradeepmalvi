@@ -1,12 +1,20 @@
 const { User, Income, Expense } = require("../models/model");
+const bcrypt = require("bcrypt");
 
 const userRegister = async (req, res) => {
   try {
+    const { name, email, password } = req.body;
+    // generate salt to hash password
+    const salt = await bcrypt.genSalt(10);
+    // now we set user password to hashed password
+    let encryptedPassword = await bcrypt.hash(password, salt);
+
     const user = await User.create({
-      name: req.body.name,
-      email: req.body.email,
-      password: req.body.password
+      name,
+      email,
+      password: encryptedPassword
     });
+
     res.json({
       status: true,
       message: "User registered successfully!",
@@ -17,7 +25,7 @@ const userRegister = async (req, res) => {
       }
     });
   } catch (error) {
-    res.json({ status: false, error: "User already exist!" });
+    res.json({ status: false, message: "User already exist!" });
   }
 };
 
@@ -26,19 +34,22 @@ const userLogin = async (req, res) => {
   const user = await User.findOne({ email });
 
   if (user) {
-    if (user.password !== password) {
-      res.json({ status: false, message: "Invalid password!" });
-    }
+    // check user password with hashed password stored in the database
+    const validPassword = await bcrypt.compare(password, user.password);
 
-    res.json({
-      status: true,
-      message: "User found successfully!",
-      data: {
-        id: user._id,
-        email: user.email,
-        name: user.name
-      }
-    });
+    if (validPassword) {
+      res.json({
+        status: true,
+        message: "User found successfully!",
+        data: {
+          id: user._id,
+          email: user.email,
+          name: user.name
+        }
+      });
+    } else {
+      res.json({ status: false, message: "Invalid Password" });
+    }
   } else {
     res.json({ status: false, message: "User not found!" });
   }
@@ -69,7 +80,7 @@ const incomeAdd = async (req, res) => {
     });
     res.json({ status: true, data: income });
   } catch (error) {
-    res.json({ status: false, error: "Something went wrong!" });
+    res.json({ status: false, message: "Something went wrong!" });
   }
 };
 
@@ -86,7 +97,7 @@ const incomeDelete = async (req, res) => {
       res.json({ status: false, message: "Income not found" });
     }
   } catch (error) {
-    res.json({ status: false, error: "Something went wrong!" });
+    res.json({ status: false, message: "Something went wrong!" });
   }
 };
 
@@ -115,7 +126,7 @@ const expenseAdd = async (req, res) => {
     });
     res.json({ status: true, data: expense });
   } catch (error) {
-    res.json({ status: false, error: "Something went wrong!" });
+    res.json({ status: false, message: "Something went wrong!" });
   }
 };
 
@@ -132,7 +143,7 @@ const expenseDelete = async (req, res) => {
       res.json({ status: false, message: "Expense not found" });
     }
   } catch (error) {
-    res.json({ status: false, error: "Something went wrong!" });
+    res.json({ status: false, message: "Something went wrong!" });
   }
 };
 
