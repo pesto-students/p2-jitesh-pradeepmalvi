@@ -13,6 +13,10 @@ export default function Section() {
   const [expenseModal, setExpenseModal] = useState(false);
   const [userAccess, setUserAccess] = useState(false);
   const [isPopoverOpen, setIsPopoverOpen] = useState(false);
+  const [dates, setDates] = useState({
+    startDate: new Date(new Date().getFullYear(), 0, 1),
+    endDate: new Date(new Date().getFullYear(), 11, 31)
+  });
 
   useEffect(() => {
     const userDetails = JSON.parse(localStorage.getItem("wealth_user"));
@@ -23,7 +27,11 @@ export default function Section() {
     getSummary(userDetails);
   }, []);
 
-  const getSummary = async (userDetails, dates) => {
+  useEffect(() => {
+    getSummary();
+  }, [dates]);
+
+  const getSummary = async userDetails => {
     const user = userAccess || userDetails;
     setLoading(true);
 
@@ -72,6 +80,7 @@ export default function Section() {
       endDate: endDate.toISOString()
     };
     getSummary(userAccess, date);
+    setDates(date);
   };
 
   return (
@@ -80,6 +89,7 @@ export default function Section() {
         <div className="bg-gray-200 px-10 py-10 flex justify-between">
           <>
             <DatePopover
+              dates={dates}
               onSelectDate={onSelectDate}
               isPopoverOpen={isPopoverOpen}
               setIsPopoverOpen={(value, dates) =>

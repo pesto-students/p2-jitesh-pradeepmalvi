@@ -7,15 +7,27 @@ import moment from "moment";
 export default function DatePopover({
   isPopoverOpen,
   onSelectDate,
+  dates,
   setIsPopoverOpen
 }) {
-  const [dates, setDates] = useState({
+  const [dateData, setDatesData] = useState({
     startDate: new Date(new Date().getFullYear(), 0, 1),
     endDate: new Date(new Date().getFullYear(), 11, 31)
   });
 
   const onChangeDate = dates => {
-    setDates(dates[0]);
+    setDatesData(dates[0]);
+  };
+
+  const onSelect = () => {
+    const startDate = new Date(dateData.startDate);
+    const endDate = new Date(dateData.endDate);
+    const date = {
+      startDate: startDate.toISOString(),
+      endDate: endDate.toISOString()
+    };
+
+    onSelectDate(date);
   };
 
   return (
@@ -31,7 +43,7 @@ export default function DatePopover({
             class="text-white bg-gray-800 hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-sm text-sm px-5 py-2 disabled:bg-gray-300"
             onClick={() => {
               setIsPopoverOpen(!isPopoverOpen);
-              onSelectDate(dates);
+              onSelect();
             }}
           >
             Select
