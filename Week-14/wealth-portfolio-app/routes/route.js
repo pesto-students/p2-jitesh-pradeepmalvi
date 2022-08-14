@@ -32,6 +32,6 @@ router.route("/expense/add").post(authenticate, expenseAdd);
 router.route("/expense/delete/:expenseId").delete(authenticate, expenseDelete);
 
 // Summary Routes
-router.route("/summary").get(authenticate, getSummaryReport);
+router.route("/summary").post(authenticate, getSummaryReport);
 
 module.exports = router;

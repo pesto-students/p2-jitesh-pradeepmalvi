@@ -4,6 +4,7 @@ import Loader from "./Loader";
 import AddIncomeModal from "../modals/AddIncomeModal";
 import AddExpenseModal from "../modals/AddExpenseModal";
 import moment from "moment";
+import DatePopover from "./DatePopover";
 
 export default function Section() {
   const [data, setData] = useState({});
@@ -11,6 +12,7 @@ export default function Section() {
   const [incomeModal, setIncomeModal] = useState(false);
   const [expenseModal, setExpenseModal] = useState(false);
   const [userAccess, setUserAccess] = useState(false);
+  const [isPopoverOpen, setIsPopoverOpen] = useState(false);
 
   useEffect(() => {
     const userDetails = JSON.parse(localStorage.getItem("wealth_user"));
@@ -21,16 +23,21 @@ export default function Section() {
     getSummary(userDetails);
   }, []);
 
-  const getSummary = async userDetails => {
+  const getSummary = async (userDetails, dates) => {
     const user = userAccess || userDetails;
     setLoading(true);
+
     try {
       const headers = {
         Authorization: `Bearer ${user.token}`
       };
-      const { data } = await axios.get("http://localhost:5000/api/summary", {
-        headers
-      });
+      const { data } = await axios.post(
+        "http://localhost:5000/api/summary",
+        dates,
+        {
+          headers
+        }
+      );
       setData(data);
       setLoading(false);
     } catch (error) {
@@ -57,35 +64,56 @@ export default function Section() {
     }
   };
 
+  const onSelectDate = dates => {
+    const startDate = new Date(dates.startDate);
+    const endDate = new Date(dates.endDate);
+    const date = {
+      startDate: startDate.toISOString(),
+      endDate: endDate.toISOString()
+    };
+    getSummary(userAccess, date);
+  };
+
   return (
     <>
-      {loading ? (
-        <div className="bg-gray-200 px-10 py-10 flex justify-center min-h-[100vh]">
-          <Loader width={"w-10"} />
-        </div>
-      ) : (
-        <>
-          <div className="bg-gray-200 px-10 py-10 flex">
-            <a class="block px-10 text-center mr-5 py-2 max-w-sm bg-white rounded-sm border border-white-200 shadow-sm">
+      <>
+        <div className="bg-gray-200 px-10 py-10 flex justify-between">
+          <>
+            <DatePopover
+              onSelectDate={onSelectDate}
+              isPopoverOpen={isPopoverOpen}
+              setIsPopoverOpen={(value, dates) =>
+                setIsPopoverOpen(value, dates)
+              }
+            />
+          </>
+          <div className="bg-gray-200 flex justify-between items-start">
+            <a class="block px-10 text-center py-2 max-w-sm bg-white rounded-sm border border-white-200 shadow-sm">
               <h5 class="text-2xl font-bold tracking-tight text-gray-900">
                 &#8377; {data?.balance}
               </h5>
               <p class="font-normal text-gray-400">Balance</p>
             </a>
-            <a class="block px-10 text-center mr-5 py-2 max-w-sm bg-white rounded-sm border border-white-200 shadow-sm">
+            <a class="block px-10 text-center py-2 max-w-sm bg-white rounded-sm border border-white-200 shadow-sm">
               <h5 class="text-2xl font-bold tracking-tight text-green-500">
                 &#8377; {data?.incomeTotal}
               </h5>
               <p class="font-normal text-gray-400">Income</p>
             </a>
-            <a class="block px-10 text-center mr-5 py-2 max-w-sm bg-white rounded-sm border border-white-200 shadow-sm">
+            <a class="block px-10 text-center py-2 max-w-sm bg-white rounded-sm border border-white-200 shadow-sm">
               <h5 class="text-2xl font-bold tracking-tight text-red-500">
                 &#8377; {data?.expenseTotal}
               </h5>
               <p class="font-normal text-gray-400">Expenses</p>
             </a>
           </div>
+        </div>
 
+        {loading ? (
+          <div className="bg-gray-200 px-10 py-10 flex justify-center min-h-[60vh]">
+            <Loader width={"w-10"} />
+          </div>
+        ) : (
           <div className="bg-gray-200 px-10 flex min-h-[60vh]">
             <div className="w-full mr-5">
               <div className="flex justify-between">
@@ -184,18 +212,18 @@ export default function Section() {
               </ul>
             </div>
           </div>
-          <AddIncomeModal
-            modalIsOpen={incomeModal}
-            onClose={() => setIncomeModal(false)}
-            getSummary={getSummary}
-          />
-          <AddExpenseModal
-            modalIsOpen={expenseModal}
-            onClose={() => setExpenseModal(false)}
-            getSummary={getSummary}
-          />
-        </>
-      )}{" "}
+        )}
+        <AddIncomeModal
+          modalIsOpen={incomeModal}
+          onClose={() => setIncomeModal(false)}
+          getSummary={getSummary}
+        />
+        <AddExpenseModal
+          modalIsOpen={expenseModal}
+          onClose={() => setExpenseModal(false)}
+          getSummary={getSummary}
+        />
+      </>
     </>
   );
 }

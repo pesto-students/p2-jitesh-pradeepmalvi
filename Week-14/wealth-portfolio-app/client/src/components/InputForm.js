@@ -39,10 +39,11 @@ export default function InputForm({ type, onClose, getSummary }) {
       Authorization: `Bearer ${user.token}`
     };
 
+    const dateString = new Date(values.date);
     const data = {
       user: userAccess.id,
       name: values.name,
-      date: values.date,
+      date: dateString.toISOString(),
       amount: parseInt(values.amount)
     };
 

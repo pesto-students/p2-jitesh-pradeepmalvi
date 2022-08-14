@@ -151,8 +151,27 @@ const expenseDelete = async (req, res) => {
 
 const getSummaryReport = async (req, res) => {
   const user = req.user;
-  const expense = await Expense.find({ user });
-  const income = await Income.find({ user });
+
+  const defaultStartDate = new Date(new Date().getFullYear(), 0, 1);
+  const defaultEndDate = new Date(new Date().getFullYear(), 11, 31);
+
+  const { startDate, endDate } = req.body;
+
+  const expense = await Expense.find({
+    user,
+    date: {
+      $gte: startDate || defaultStartDate.toISOString(),
+      $lte: endDate || defaultEndDate.toISOString()
+    }
+  });
+
+  const income = await Income.find({
+    user,
+    date: {
+      $gte: startDate || defaultStartDate.toISOString(),
+      $lte: endDate || defaultEndDate.toISOString()
+    }
+  });
 
   const incomeTotal =
     income.length > 0
