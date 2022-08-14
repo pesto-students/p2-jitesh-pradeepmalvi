@@ -34,6 +34,11 @@ export default function InputForm({ type, onClose, getSummary }) {
 
     setLoading(true);
 
+    const user = userAccess;
+    const headers = {
+      Authorization: `Bearer ${user.token}`
+    };
+
     const data = {
       user: userAccess.id,
       name: values.name,
@@ -42,11 +47,13 @@ export default function InputForm({ type, onClose, getSummary }) {
     };
 
     try {
-      axios.post(`http://localhost:5000/api/${type}/add`, data).then(res => {
-        setLoading(false);
-        getSummary();
-        onClose();
-      });
+      axios
+        .post(`http://localhost:5000/api/${type}/add`, data, { headers })
+        .then(res => {
+          setLoading(false);
+          getSummary();
+          onClose();
+        });
     } catch (error) {
       setLoading(false);
     }

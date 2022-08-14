@@ -22,16 +22,15 @@ export default function Section() {
   }, []);
 
   const getSummary = async userDetails => {
-    const userId = userAccess.id || userDetails.id;
+    const user = userAccess || userDetails;
     setLoading(true);
     try {
-      const body = {
-        user: userId
+      const headers = {
+        Authorization: `Bearer ${user.token}`
       };
-      const { data } = await axios.post(
-        "http://localhost:5000/api/summary",
-        body
-      );
+      const { data } = await axios.get("http://localhost:5000/api/summary", {
+        headers
+      });
       setData(data);
       setLoading(false);
     } catch (error) {
@@ -41,9 +40,15 @@ export default function Section() {
   };
 
   const remove = async (id, type) => {
+    const user = userAccess;
+    const headers = {
+      Authorization: `Bearer ${user.token}`
+    };
     setLoading(true);
     try {
-      await axios.delete(`http://localhost:5000/api/${type}/delete/${id}`);
+      await axios.delete(`http://localhost:5000/api/${type}/delete/${id}`, {
+        headers
+      });
       setLoading(false);
       getSummary();
     } catch (error) {
@@ -98,8 +103,11 @@ export default function Section() {
 
               <ul className="text-sm font-medium text-gray-900 bg-white rounded-sm border border-gray-200 bg-white-700">
                 {data?.income?.length > 0 ? (
-                  data?.income.map(income => (
-                    <li className="py-2 px-4 w-full rounded-t-lg border-b border-white-200 flex justify-between">
+                  data?.income.map((income, key) => (
+                    <li
+                      key={key}
+                      className="py-2 px-4 w-full rounded-t-lg border-b border-white-200 flex justify-between"
+                    >
                       <div className="flex">
                         <div className="mr-5 text-gray-500 min-w-[100px]">
                           {moment(income.date).format("DD MMM YYYY")}
@@ -143,8 +151,11 @@ export default function Section() {
 
               <ul className="text-sm font-medium text-gray-900 bg-white rounded-sm border border-gray-200 bg-white-700">
                 {data?.expense?.length > 0 ? (
-                  data?.expense.map(expense => (
-                    <li className="py-2 px-4 w-full rounded-t-lg border-b border-white-200 flex justify-between">
+                  data?.expense.map((expense, key) => (
+                    <li
+                      key={key}
+                      className="py-2 px-4 w-full rounded-t-lg border-b border-white-200 flex justify-between"
+                    >
                       <div className="flex">
                         <div className="mr-5 text-gray-500 min-w-[100px]">
                           {moment(expense.date).format("DD MMM YYYY")}

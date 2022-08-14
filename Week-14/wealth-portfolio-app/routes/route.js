@@ -14,23 +14,24 @@ const {
   // summary
   getSummaryReport
 } = require("../controllers/controller");
+const { authenticate } = require("../middleware/authMiddleware");
 
 const router = express.Router();
 
-router.post("/users/register", userRegister);
-router.post("/users/login", userLogin);
+router.route("/users/register").post(userRegister);
+router.route("/users/login").post(userLogin);
 
 // Income Routes
-router.post("/income/all", getIncomeByUser);
-router.post("/income/add", incomeAdd);
-router.delete("/income/delete/:incomeId", incomeDelete);
+router.route("/income/all").post(authenticate, getIncomeByUser);
+router.route("/income/add").post(authenticate, incomeAdd);
+router.route("/income/delete/:incomeId").delete(authenticate, incomeDelete);
 
 // Expense Routes
-router.post("/expense/all", getExpenseByUser);
-router.post("/expense/add", expenseAdd);
-router.delete("/expense/delete/:expenseId", expenseDelete);
+router.route("/expense/all").post(authenticate, getExpenseByUser);
+router.route("/expense/add").post(authenticate, expenseAdd);
+router.route("/expense/delete/:expenseId").delete(authenticate, expenseDelete);
 
 // Summary Routes
-router.post("/summary", getSummaryReport);
+router.route("/summary").get(authenticate, getSummaryReport);
 
 module.exports = router;

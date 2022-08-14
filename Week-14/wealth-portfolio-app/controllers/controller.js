@@ -1,5 +1,6 @@
 const { User, Income, Expense } = require("../models/model");
 const bcrypt = require("bcrypt");
+const generateToken = require("../utils/generateToken");
 
 const userRegister = async (req, res) => {
   try {
@@ -40,11 +41,12 @@ const userLogin = async (req, res) => {
     if (validPassword) {
       res.json({
         status: true,
-        message: "User found successfully!",
+        message: "Loggedin successfully!",
         data: {
           id: user._id,
           email: user.email,
-          name: user.name
+          name: user.name,
+          token: generateToken(user._id)
         }
       });
     } else {
@@ -56,7 +58,7 @@ const userLogin = async (req, res) => {
 };
 
 const getIncomeByUser = async (req, res) => {
-  const { user } = req.body;
+  const user = req.user;
   const income = await Income.find({ user });
 
   if (income) {
@@ -102,7 +104,7 @@ const incomeDelete = async (req, res) => {
 };
 
 const getExpenseByUser = async (req, res) => {
-  const { user } = req.body;
+  const user = req.user;
   const expense = await Expense.find({ user });
 
   if (expense) {
@@ -148,7 +150,7 @@ const expenseDelete = async (req, res) => {
 };
 
 const getSummaryReport = async (req, res) => {
-  const { user } = req.body;
+  const user = req.user;
   const expense = await Expense.find({ user });
   const income = await Income.find({ user });
 
