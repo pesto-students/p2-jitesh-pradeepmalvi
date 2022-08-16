@@ -98,19 +98,19 @@ export default function Section() {
             />
           </>
           <div className="bg-gray-200 flex justify-between items-start">
-            <a class="block px-10 text-center py-2 max-w-sm bg-white rounded-sm border border-white-200 shadow-sm">
+            <a class="block px-10 text-center ml-5 py-2 max-w-sm bg-white rounded-sm border border-white-200 shadow-sm">
               <h5 class="text-2xl font-bold tracking-tight text-gray-900">
                 &#8377; {data?.balance}
               </h5>
               <p class="font-normal text-gray-400">Balance</p>
             </a>
-            <a class="block px-10 text-center py-2 max-w-sm bg-white rounded-sm border border-white-200 shadow-sm">
+            <a class="block px-10 text-center ml-5 py-2 max-w-sm bg-white rounded-sm border border-white-200 shadow-sm">
               <h5 class="text-2xl font-bold tracking-tight text-green-500">
                 &#8377; {data?.incomeTotal}
               </h5>
               <p class="font-normal text-gray-400">Income</p>
             </a>
-            <a class="block px-10 text-center py-2 max-w-sm bg-white rounded-sm border border-white-200 shadow-sm">
+            <a class="block px-10 text-center ml-5 py-2 max-w-sm bg-white rounded-sm border border-white-200 shadow-sm">
               <h5 class="text-2xl font-bold tracking-tight text-red-500">
                 &#8377; {data?.expenseTotal}
               </h5>
