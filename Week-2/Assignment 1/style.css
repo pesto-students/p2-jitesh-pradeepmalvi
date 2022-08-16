@@ -1,0 +1,130 @@
+* {
+  margin: 0;
+  padding: 0;
+  font-family: "Montserrat", sans-serif;
+}
+body {
+}
+header {
+  width: 100%;
+  background-color: #c2c2c2;
+}
+header .logo-text {
+  padding: 20px;
+  font-weight: bold;
+  text-transform: uppercase;
+}
+article {
+  padding: 20px;
+  display: flex;
+}
+.heading {
+  padding-top: 40px;
+  text-align: center;
+}
+article .left-article {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 50px;
+}
+article .left-article img {
+  width: 80%;
+  padding-top: 50px;
+}
+article .right-article {
+  display: flex;
+  flex-direction: column;
+  padding: 50px;
+}
+
+article .right-article .article-item {
+  padding-bottom: 50px;
+}
+
+article .right-article .article-item h4 {
+  text-transform: uppercase;
+  margin-bottom: 10px;
+}
+article p {
+  color: #6e6e6e;
+}
+
+.form-wrapper {
+  width: 30%;
+  margin: 20px auto;
+  margin-bottom: 80px;
+  background-color: #c2c2c2;
+  padding: 50px;
+  border-radius: 2px;
+}
+.form-wrapper .input-group {
+  padding: 5px 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.form-wrapper .input-group input,
+.form-wrapper .input-group select {
+  width: 50%;
+  border-radius: 0;
+  border: none;
+  margin-left: 10px;
+  padding: 5px;
+  background-color: transparent;
+  border-bottom: 2px solid #6e6e6e;
+  outline: none;
+  font-size: 16px;
+}
+
+.form-wrapper button {
+  background-color: black;
+  color: white;
+  padding: 5px 20px;
+  margin-top: 20px;
+  border-radius: 2px;
+  cursor: pointer;
+  font-size: 16px;
+  text-transform: uppercase;
+}
+
+form .terms {
+  margin: 20px 0;
+}
+
+footer {
+  width: 100%;
+  background-color: #c2c2c2;
+  color: #6e6e6e;
+}
+footer p {
+  padding: 20px;
+}
+@media only screen and (max-width: 600px) {
+  article {
+    flex-direction: column;
+  }
+  article .left-article {
+    padding: 20px;
+  }
+  article .right-article {
+    padding: 20px;
+  }
+  .form-wrapper {
+    width: 80%;
+    padding: 20px;
+  }
+  .form-wrapper .input-group {
+    padding: 5px 0;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+  }
+  .form-wrapper .input-group input,
+  .form-wrapper .input-group select {
+    width: 90%;
+    margin: 0;
+    margin-bottom: 20px;
+  }
+}
